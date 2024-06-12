@@ -1,6 +1,6 @@
 // Interfaz de cada producto //
 
-type TipoIva =
+export type TipoIva =
   | "general"
   | "reducido"
   | "superreducidoA"
@@ -8,7 +8,7 @@ type TipoIva =
   | "superreducidoC"
   | "sinIva";
 
-interface Producto {
+export interface Producto {
   nombre: string;
   precio: number;
   tipoIva: TipoIva;
@@ -16,14 +16,14 @@ interface Producto {
 
 // cada línea del ticket estará compuesta por un producto y una cantidad, y se define mediante la siguiente interfaz: //
 
-interface LineaTicket {
+export interface LineaTicket {
   producto: Producto;
   cantidad: number;
 }
 
 // ejemplo de productos de entrada: //
 
-const productos: LineaTicket[] = [
+export const productos: LineaTicket[] = [
   {
     producto: {
       nombre: "Legumbres",
@@ -57,3 +57,37 @@ const productos: LineaTicket[] = [
     cantidad: 1,
   },
 ];
+
+/*La función calculaTicket devolverá un ticket que contendrá la siguiente información:
+ Por cada producto queremos el nombre, la cantidad, el precio sin IVA, el tipo de IVA y el precio con IVA */
+
+export interface ResultadoLineaTicket {
+  nombre: string;
+  cantidad: number;
+  precionSinIva: number;
+  tipoIva: TipoIva;
+  precioConIva: number;
+}
+
+/* cuanto a los totales:
+El total sin IVA.
+El IVA.
+Un desglose del total por tipo de IVA, es decir, la suma de los importes correspondientes a cada tipo de IVA.
+El total del ticket, incluyendo el IVA. */
+
+export interface ResultadoTotalTicket {
+  totalSinIva: number;
+  totalConIva: number;
+  totalIva: number;
+}
+
+export interface TotalPorTipoIva {
+  tipoIva: TipoIva;
+  cuantia: number;
+}
+
+export interface TicketFinal {
+  lineas: ResultadoLineaTicket[];
+  total: ResultadoTotalTicket;
+  desgloseIva: TotalPorTipoIva[];
+}
