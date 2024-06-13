@@ -13,40 +13,44 @@ export const calcularPrecioSinIva = (
     if (!producto || !cantidad) {
         throw new Error("Introduce producto o cantidad");
       }
-    return producto.precio * cantidad;
+    return Number((producto.precio * cantidad).toFixed(2));
 };
 
 export const calcularPrecioConIva = (
     producto: Producto,
     cantidad: number
     ): number => {
-    let precioSinIva = calcularPrecioSinIva(producto, cantidad);
+        if (!producto || !cantidad) {
+            throw new Error("Introduce producto o cantidad");
+        }
+
+    const precio = calcularPrecioSinIva(producto, cantidad);
     let precioConIva = 0;
     
     switch (producto.tipoIva) {
         case "general":
-        precioConIva = precioSinIva * 1.21;
+        precioConIva = precio * 0.21;
         break;
         case "reducido":
-        precioConIva = precioSinIva * 1.1;
+        precioConIva = precio * 0.1;
         break;
         case "superreducidoA":
-        precioConIva = precioSinIva * 1.04;
+        precioConIva = precio * 0.05;
         break;
         case "superreducidoB":
-        precioConIva = precioSinIva * 1.055;
+        precioConIva = precio * 0.04;
         break;
         case "superreducidoC":
-        precioConIva = precioSinIva * 1.059;
+        precioConIva = precioConIva;;
         break;
         case "sinIva":
-        precioConIva = precioSinIva;
+        precioConIva = precioConIva;
         break;
         default:
             throw new Error("Tipo de IVA no válido");
     }
     
-    return Number(precioConIva.toFixed(2));
+    return Number((precio + precioConIva).toFixed(2));
     }
 
 export const arrayLineas = (lineas: LineaTicket[]): ResultadoLineaTicket[] => {
@@ -91,41 +95,38 @@ export const desgloseIva = (lineas: ResultadoLineaTicket[]): TotalPorTipoIva[] =
         lineas.forEach((linea) => {
             switch (linea.tipoIva) {
                 case "general":
-                    general += linea.precioConIva;
+                    general += Number((linea.precioConIva - linea.precioSinIva).toFixed(2));
                     break;
                 case "reducido":
-                    reducido += linea.precioConIva;
+                    reducido += Number((linea.precioConIva - linea.precioSinIva).toFixed(2));
                     break;
                 case "superreducidoA":
-                    superreducidoA += linea.precioConIva;
+                    superreducidoA += Number((linea.precioConIva - linea.precioSinIva).toFixed(2));
                     break;
                 case "superreducidoB":
-                    superreducidoB += linea.precioConIva;
+                    superreducidoB += Number((linea.precioConIva - linea.precioSinIva).toFixed(2));
                     break;
                 case "superreducidoC":
-                    superreducidoC += linea.precioConIva;
-                    break;
+                    superreducidoC += Number((linea.precioConIva - linea.precioSinIva).toFixed(2));
                 case "sinIva":
-                    sinIva += linea.precioConIva;
+                    sinIva += Number((linea.precioConIva - linea.precioSinIva).toFixed(2));
                     break;
-                default:
-                    throw new Error("Tipo de IVA no válido");
             }
         });
 
-        if (general > 0) {
+        if (general != 0) {
             desglose.push({ tipoIva: "general", cuantia: general });   
         }
 
-        if (reducido > 0) {
+        if (reducido != 0) {
             desglose.push({ tipoIva: "reducido", cuantia: reducido });
         }
 
-        if (superreducidoA > 0) {
+        if (superreducidoA != 0) {
             desglose.push({ tipoIva: "superreducidoA", cuantia: superreducidoA });
         }
 
-        if (superreducidoB > 0) {
+        if (superreducidoB != 0) {
             desglose.push({ tipoIva: "superreducidoB", cuantia: superreducidoB });
         }
 
