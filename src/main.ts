@@ -1,8 +1,6 @@
 import "./style.css";
 
-import { productos } from "./ticket/modelo";
-import { calculaTicket } from "./ticket/ticket";    
-
+import { productos } from "./ticket_compra/modelo";
+import { calculaTicket } from "./ticket_compra/ticket";
 
 console.log(calculaTicket(productos));
-
