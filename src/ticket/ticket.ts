@@ -9,8 +9,8 @@ import {
 
 const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
     const lineas: ResultadoLineaTicket[] = arrayLineas(lineasTicket);
-    const total: ResultadoTotalTicket = calculaTotal(lineas);
-    const desglose: TotalPorTipoIva[] = calculaDesglose(lineas);
+    const total: ResultadoTotalTicket = calcularResultadoTotal(lineas);
+    const desglose: TotalPorTipoIva[] = desgloseIva(lineas);
 
     const ticket = {
         lineas,
