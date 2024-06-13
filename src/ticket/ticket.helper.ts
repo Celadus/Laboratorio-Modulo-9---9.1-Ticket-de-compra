@@ -80,7 +80,7 @@ export const calcularResultadoTotal = (
 };
 
 export const desgloseIva = (lineas: ResultadoLineaTicket[]): TotalPorTipoIva[] => {
-    const desglose = TotalPorTipoIva[] = [];
+    const desglose : TotalPorTipoIva[] = [];
      let general = 0;
         let reducido = 0;
         let superreducidoA = 0;
