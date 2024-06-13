@@ -10,7 +10,10 @@ export const calcularPrecioSinIva = (
   producto: Producto,
   cantidad: number
 ): number => {
-  return producto.precio * cantidad;
+    if (!producto || !cantidad) {
+        throw new Error("Introduce producto o cantidad");
+      }
+    return producto.precio * cantidad;
 };
 
 export const calcularPrecioConIva = (
