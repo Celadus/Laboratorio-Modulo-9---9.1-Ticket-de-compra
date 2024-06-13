@@ -60,6 +60,7 @@ it("debe devolver un ticket con el precio total y el desglose del IVA para una s
     ],
   });
 });
+});
 
 describe("calculaTicket", () => {
   it("debe devolver un ticket con el precio total y el desglose del IVA para líneas de ticket con diferentes tipos de IVA", () => {
