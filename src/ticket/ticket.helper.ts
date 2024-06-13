@@ -76,7 +76,7 @@ export const calcularResultadoTotal = (
   return resultado;
 };
 
-const desgloseIva = (lineas: ResultadoLineaTicket[]): TotalPorTipoIva[] => {
+export const desgloseIva = (lineas: ResultadoLineaTicket[]): TotalPorTipoIva[] => {
     const desglose = TotalPorTipoIva[] = [];
      let general = 0;
         let reducido = 0;
